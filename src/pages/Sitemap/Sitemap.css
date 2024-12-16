@@ -1,0 +1,18 @@
+.content-sitemap-wait{
+    display: flex;
+    height: 55px;
+    width: 100vw;
+    background: #4FA1C1;
+    align-items: center;
+    justify-content: center;
+    margin: 24px 24px 24px 32px;
+    border-radius: 20px;
+
+     h1{
+        margin: 0;
+        font-family: Ubuntu;
+        font-weight: 400;
+        font-size: 28px;
+        color: #FFFFFF;
+    }
+}

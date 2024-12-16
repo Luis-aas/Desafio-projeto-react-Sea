@@ -1,0 +1,140 @@
+.sidebar {
+  width: 100%;
+  max-width: 3.5rem; 
+  height: 48rem;
+  background-color: #4FA1C1; /* Cor azul da sidebar */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 0;
+  border-radius: 0 20px 20px 0;
+  left: 0;
+  top: 0;
+  z-index: 10;
+  transition: all 0.3s ease;
+}
+
+.sidebar-top-rectangle {
+  display: flex;
+  width: 3.5rem; 
+  height: 41px; 
+  background-color: #ffffff; 
+  margin-bottom: 134px; 
+}
+
+/* Barra de 3 Pontinhos */
+.sidebar-toggle {
+  display: none; /* Por padrão, escondido */
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  cursor: pointer;
+  font-size: 1.5rem;
+  color: white;
+  z-index: 15;
+}
+
+/* Quando a sidebar estiver "collapsed", esconda ela */
+.sidebar.collapsed {
+  width: 3rem; /* Largura reduzida */
+  background-color: transparent; /* Esconde a cor azul */
+}
+
+.sidebar.collapsed .sidebar-toggle {
+  display: block; /* Só mostrar o ícone de 3 pontinhos quando minimizada */
+  color: #4FA1C1; /* Muda a cor do ícone para azul */
+}
+
+.sidebar.collapsed button,
+.sidebar.collapsed .sidebar-top-rectangle {
+  display: none; /* Esconde os itens da sidebar */
+}
+
+/* Ícones da Sidebar */
+.sidebar-icon {
+  background-color: #ffffffd2;
+  border: none;
+  width: 32px;
+  height: 32px;
+  margin: 15px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.sidebar-icon svg {
+  width: 19px;
+  height: 22px;
+}
+.icon-wrapper {
+  position: relative;
+  display: inline-block;
+  width: 19px; /* Ajuste conforme o tamanho do ícone */
+  height: 22px;
+}
+
+/* Mini-ícone posicionado no canto inferior direito */
+.mini-icon {
+  position: absolute;
+  bottom: -12px; /* Ajuste a posição vertical */
+  right: -12px; /* Ajuste a posição horizontal */
+  width: 16px; /* Tamanho do mini-ícone */
+  height: 16px;
+  background-color: #ffffffd2; /* Fundo opcional para destacar */
+  border-radius: 4px; /* Torna o fundo arredondado */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mini-icon svg {
+  width: 13px; /* Tamanho do mini-ícone */
+  height: 14px;
+}
+.sidebar-icon.active {
+  background-color: #ffffff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Destaque no botão ativo */
+}
+
+.sidebar-icon.active::before {
+  content: '';
+  position: absolute;
+  left: 0; /* Posiciona o retângulo à esquerda */
+  width: 4px;
+  height: 32px; /* Mesma altura do botão */
+  background-color: #ffffff;
+}
+
+/* Media Queries - Responsividade */
+
+/* Mobile (até 480px) */
+@media (max-width: 480px) {
+  .sidebar {
+    width: 3.5rem; /* Largura normal para mobile */
+    position: fixed;
+  }
+
+  .sidebar.collapsed {
+    width: 3rem; /* Sidebar minimizada */
+    background-color: transparent; /* Remove a cor azul quando minimizada */
+  }
+
+  .sidebar-toggle {
+    display: block; /* Exibe o botão de três pontinhos no mobile */
+  }
+
+  .sidebar-icon {
+    width: 28px;
+    height: 28px;
+    margin: 10px 0;
+  }
+
+  .sidebar-icon svg {
+    width: 16px;
+    height: 18px;
+  }
+}

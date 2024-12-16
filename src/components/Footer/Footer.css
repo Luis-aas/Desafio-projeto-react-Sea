@@ -1,0 +1,53 @@
+     .footer {
+      width: 100%;
+      max-width: 1254px;
+      height: 32px;
+      margin: 32px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+  }
+  
+  .footer .next-step {
+      max-width: 194px;
+      width: 100%;
+      height: 32px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #649FBF;
+      border: none;
+      cursor: pointer;
+  }
+  
+  .footer .next-step span {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      font-weight: 700;
+      font-size: 14px;
+      line-height: 16.41px;
+      color: white;
+  }
+  
+  .footer .back-step {
+      max-width: 194px;
+      width: 100%;
+      height: 32px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #649FBF;
+      border: none;
+      visibility: hidden;
+      cursor: pointer;
+  }
+  
+  .footer .back-step span {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      font-weight: 700;
+      font-size: 14px;
+      line-height: 16.41px;
+      color: white;
+  }
+  

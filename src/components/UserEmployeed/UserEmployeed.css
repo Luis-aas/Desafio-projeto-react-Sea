@@ -1,0 +1,77 @@
+/* .user{
+    width: 100%;
+    max-width: 460px;
+    height: 439px;
+    border-radius: 20px;
+    padding: 24px;
+    gap: 32px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-around;
+    background-color: #ffffff;
+    box-shadow: rgba(0, 0, 0, 0.05);
+    flex-direction: column;
+    p{
+      font-family: Ubuntu;
+      font-size: 16px;
+      line-height: 19.55px;
+      font-weight: 400;
+      color: rgba(149, 149, 149, 1);
+    }
+    svg{
+      width: 100%;
+      max-width: 142px;
+      height: 159px;
+    }
+  }
+   */
+
+   .user {
+    width: 100%;
+    max-width: 460px;
+    height: auto; /* Permite altura dinâmica */
+    border-radius: 20px;
+    padding: 24px;
+    gap: 32px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-around;
+    background-color: #ffffff;
+    box-shadow: rgba(0, 0, 0, 0.05);
+    flex-direction: column;
+}
+
+.user p {
+    font-family: Ubuntu, Arial, sans-serif;
+    font-size: 16px;
+    line-height: 19.55px;
+    font-weight: 400;
+    color: rgba(149, 149, 149, 1);
+    text-align: justify; /* Alinhamento justificado */
+    word-break: break-word; /* Garante quebra em palavras longas */
+    overflow-wrap: break-word; /* Quebra segura para palavras */
+    white-space: normal; /* Garante que o texto flua */
+}
+
+.user svg {
+    width: 100%;
+    max-width: 142px;
+    height: auto;
+}
+
+/* Media Query para telas menores */
+@media screen and (max-width: 480px) {
+    .user {
+        padding: 16px;
+        gap: 16px;
+    }
+
+    .user p {
+        font-size: 14px; /* Reduz o tamanho da fonte */
+        line-height: 18px;
+    }
+
+    .user svg {
+        max-width: 100px;
+    }
+}

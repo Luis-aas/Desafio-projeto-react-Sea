@@ -1,0 +1,200 @@
+  .form {
+    width: 100%;
+    min-height: 754px;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    background-color: #ffffff;
+}
+
+.header-form {
+    width: 100%;
+    height: 56px;
+    border-radius: 20px 20px 0 0;
+    background-color: #649FBF;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.header-form p {
+    max-width: 179px;
+    width: 100%;
+    height: 32px;
+    font-family: Ubuntu;
+    font-weight: 400;
+    font-size: 28px;
+    color: #ffffff;
+    margin-bottom: 0;
+    margin-left: 24px;
+}
+
+.container-add {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-direction: column;
+    width: 100%;
+    padding: 16px 24px;
+    gap: 16px;
+}
+
+.button-add-func {
+    max-width: 714px;
+    width: 100%;
+    height: 66px;
+    border-radius: 10px;
+    border: 1px solid #649FBF;
+    background: none;
+    font-family: Ubuntu;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 18.38px;
+    color: #649FBF;
+    cursor: pointer;
+}
+
+.group-actives {
+    max-width: 714px;
+    width: 100%;
+    height: 36px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.group-actives div {
+    display: flex;
+    align-items: center;
+    max-width: 408px;
+    width: 100%;
+    height: 36px;
+    gap: 24px;
+}
+
+.group-actives div button {
+    background: none;
+    max-width: 192px;
+    width: 100%;
+    height: 36px;
+    border-radius: 10px;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.group-actives div button p {
+    font-family: Ubuntu;
+    font-weight: 400;
+    font-size: 14px;
+    margin-bottom: 0;
+}
+
+.group-actives span {
+    font-family: Ubuntu;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 16.09px;
+}
+
+.content-employee {
+    max-width: 762px;
+    width: 100%;
+    height: 448px;
+    padding: 16px 24px;
+    gap: 16px;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.buttons-info {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    height: 24px;
+    top: 36px;
+    gap: 16px;
+}
+
+.buttons-info button {
+    background: #649FBF;
+    border-radius: 36px;
+    color: white;
+    padding: 4px 16px;
+    font-size: 14px;
+    border: none;
+    font-family: Ubuntu;
+    font-weight: 400;
+    line-height: 16.09px;
+}
+
+.footer-info {
+    max-width: 762px;
+    width: 100%;
+    height: 52px;
+    padding: 16px 24px;
+    gap: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.content-footer {
+    max-width: 212px;
+    width: 100%;
+    height: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.content-footer p {
+    font-family: Ubuntu;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 16.1px;
+    color: #3a3a3a;
+}
+/* Botão Ativo */
+.active-button {
+  border: 1px solid #649FBF; /* Cor da borda */
+  color: #649FBF; /* Cor do texto */
+  background-color: #ffffff; /* Fundo branco */
+  font-family: Ubuntu, sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+/* Botão Inativo */
+.inactive-button {
+  border: 1px solid #959595; /* Cor da borda */
+  color: #959595; /* Cor do texto */
+  background-color: #ffffff; /* Fundo branco */
+  font-family: Ubuntu, sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+/* Hover Botão Ativo */
+.active-button:hover {
+  background-color: #eaf4fc; /* Fundo azul claro */
+  color: #649FBF; /* Cor do texto */
+  border-color: #649FBF; /* Mantém a borda */
+}
+
+/* Hover Botão Inativo */
+.inactive-button:hover {
+  background-color: #f5f5f5; /* Fundo cinza claro */
+  color: #959595; /* Cor do texto */
+  border-color: #959595; /* Mantém a borda */
+}
