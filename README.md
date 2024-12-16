@@ -229,8 +229,6 @@ Exemplo de estilo (App.css):
 
 css
 
-Copiar código
-
 body {
 
 margin: 0;
