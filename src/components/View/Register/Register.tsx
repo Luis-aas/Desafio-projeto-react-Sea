@@ -13,16 +13,22 @@ interface FormData {
   rg: string;
   birthdate: string;
   cargo: string;
-  activities?: { activity: string; epi: string; ca: number }[];
+  activities?: { 
+    activity: string; 
+    epiList: { 
+      epi: string; 
+      ca: number; 
+    }[]; 
+  }[];
   fileName?: string;
-  
 }
 
 export function Register({ toggleFormRegister }: { toggleFormRegister: () => void }) {
   const [fileName, setFileName] = useState<string>("Seu Arquivo");
   const [naoUsaEpi, setNaoUsaEpi] = useState(false);
-  const [activities, setActivities] = useState([{ activity: "", epi: "", ca: 0 }]);
-  const [showRemoveButton, setShowRemoveButton] = useState(false);
+  const [activities, setActivities] = useState([
+    { id: 1, activity: "", epiList: [{ epi: "", ca: 0 }] },
+  ]);
 
   const {
     register,
@@ -44,31 +50,55 @@ export function Register({ toggleFormRegister }: { toggleFormRegister: () => voi
     }
   };
 
+  const addEpi = (activityId: number) => {
+    const updatedActivities = activities.map((activity) =>
+      activity.id === activityId
+        ? { ...activity, epiList: [...activity.epiList, { epi: "", ca: 0 }] }
+        : activity
+    );
+    setActivities(updatedActivities);
+  };
+
+
+  const removeEpi = (activityId: number, epiIndex: number) => {
+    const updatedActivities = activities.map((activity) =>
+      activity.id === activityId
+        ? { ...activity, epiList: activity.epiList.filter((_, i) => i !== epiIndex) }
+        : activity
+    );
+    setActivities(updatedActivities);
+  };
+
+
+
+
+
   const addActivity = () => {
     if (activities.length < 5) {
-      setActivities([...activities, { activity: "", epi: "", ca: 0 }]);
-      setShowRemoveButton(true);
+      setActivities([
+        ...activities,
+        { id: Date.now(), activity: "", epiList: [{ epi: "", ca: 0 }] },
+      ]);
     } else {
       alert("Você só pode adicionar até 5 atividades.");
     }
   };
 
+
   const removeActivity = (index: number) => {
     const updatedActivities = activities.filter((_, i) => i !== index);
     setActivities(updatedActivities);
-    if (updatedActivities.length === 1) {
-      setShowRemoveButton(false);
-    }
   };
+
 
   const onSubmit = async (data: FormData) => {
     try {
       const funcionarios = await getFuncionarios();
-  
+
       const nextId = funcionarios.length > 0
         ? String(parseInt(funcionarios[funcionarios.length - 1].id) + 1)
         : "1";
-  
+
       const funcionario: Funcionario = {
         ...data,
         id: nextId, // ID como string
@@ -76,9 +106,9 @@ export function Register({ toggleFormRegister }: { toggleFormRegister: () => voi
         nome: data.nome,
         activity: [], // Adicionando um array vazio para activity no registro inicial
       };
-  
+
       await registerFuncionario(funcionario);
-  
+
       alert("Funcionário registrado com sucesso!");
       reset();
       toggleFormRegister();
@@ -87,8 +117,8 @@ export function Register({ toggleFormRegister }: { toggleFormRegister: () => voi
       alert("Erro ao registrar o funcionário.");
     }
   };
-  
-  
+
+
 
   return (
     <div className="form-register">
@@ -209,100 +239,142 @@ export function Register({ toggleFormRegister }: { toggleFormRegister: () => voi
 
           {/* EPIs */}
           <div className="third-content">
-            <span>Quais EPIs o trabalhador usa na atividade?</span>
-            <label style={{ fontWeight: "400" }}>
-              <input
-                type="checkbox"
-                checked={naoUsaEpi}
-                onChange={(e) => setNaoUsaEpi(e.target.checked)}
-              />{" "}
-              O trabalhador não usa EPI.
-            </label>
+  <span>Quais EPIs o trabalhador usa na atividade?</span>
+  
+  {/* Checkbox para não usar EPI */}
+  <label style={{ fontWeight: "400" }}>
+    <input
+      type="checkbox"
+      checked={naoUsaEpi}
+      onChange={(e) => setNaoUsaEpi(e.target.checked)}
+    />{" "}
+    O trabalhador não usa EPI.
+  </label>
 
-            {!naoUsaEpi && (
-              <>
-                {activities.map((_, index) => (
-                  <div key={index} className="group-select">
-                    <div className="content-select-activy">
-                      <label htmlFor={`activity-${index}`}>Selecione a atividade:</label>
-                      <select
-                        id={`activity-${index}`}
-                        {...register(`activities.${index}.activity`, {
-                          validate: (value) => value !== "0" || "Selecione uma atividade válida.",
-                        })}
-                      >
-                        <option value="0">Selecione sua atividade</option>
-                        <option value="activy1">Atividade 1</option>
-                        <option value="activy2">Atividade 2</option>
-                        <option value="activy3">Atividade 3</option>
-                      </select>
-                      {errors.activities?.[index]?.activity && (
-                        <span className="error">{errors.activities[index].activity?.message}</span>
-                      )}
-                    </div>
-
-                    <div className="content-select-epi">
-                      <div className="content-epi">
-                        <label htmlFor={`epi-${index}`}>Selecione o EPI:</label>
-                        <select
-                          id={`epi-${index}`}
-                          {...register(`activities.${index}.epi`, {
-                            validate: (value) => value !== "0" || "Selecione um EPI válido.",
-                          })}
-                        >
-                          <option value="0">Selecione seu EPI</option>
-                          <option value="Safety-footwear">Calçado de segurança</option>
-                          <option value="Safety-Glove">Luva de Segurança</option>
-                          <option value="Safety-apron">Avental de segurança</option>
-                        </select>
-                        {errors.activities?.[index]?.epi && (
-                          <span className="error">{errors.activities[index].epi?.message}</span>
-                        )}
-                      </div>
-
-                      <div className="content-epi">
-                        <label htmlFor={`ca-${index}`}>Informe o número do CA:</label>
-                        <input
-                          type="number"
-                          id={`ca-${index}`}
-                          defaultValue={0}
-                          {...register(`activities.${index}.ca`, {
-                            required: "O número do CA é obrigatório.",
-                            validate: (value) =>
-                              value !== undefined && value > 0 || "O número do CA deve ser maior que 0.",
-                          })}
-                        />
-                        {errors.activities?.[index]?.ca && (
-                          <span className="error">{errors.activities[index].ca?.message}</span>
-                        )}
-                      </div>
-
-                      <button type="button" className="add-epi-button">
-                        Adicionar EPI
-                      </button>
-                    </div>
-
-                    {showRemoveButton && (
-                      <button
-                        type="button"
-                        onClick={() => removeActivity(index)}
-                        className="remove-activity-button"
-                      >
-                        Excluir atividade
-                      </button>
-                    )}
-                  </div>
-                ))}
-
-                <button type="button" onClick={addActivity} className="add-activity-button">
-                  Adicionar outra atividade
-                </button>
-              </>
+  {/* Renderização apenas se o checkbox "naoUsaEpi" estiver desmarcado */}
+  {!naoUsaEpi && (
+    <>
+      {activities.map((activity, activityIndex) => (
+        <div key={activity.id} className="group-select">
+          
+          {/* Seleção da Atividade */}
+          <div className="content-select-activy">
+            <label htmlFor={`activity-${activityIndex}`}>Selecione a atividade:</label>
+            <select
+              id={`activity-${activityIndex}`}
+              {...register(`activities.${activityIndex}.activity`, {
+                validate: (value) => value !== "0" || "Selecione uma atividade válida.",
+              })}
+            >
+              <option value="0">Selecione sua atividade</option>
+              <option value="activy1">Atividade 1</option>
+              <option value="activy2">Atividade 2</option>
+              <option value="activy3">Atividade 3</option>
+            </select>
+            {errors.activities?.[activityIndex]?.activity && (
+              <span className="error">
+                {errors.activities[activityIndex].activity?.message}
+              </span>
             )}
+          </div>
 
-           </div> 
-           {/* Upload de arquivo */}
-           {!naoUsaEpi && (
+          {/* Mapeamento dos EPIs */}
+          {Array.isArray(activity.epiList) &&
+            activity.epiList.map((_, epiIndex) => (
+              <div key={epiIndex} className="content-select-epi">
+                
+                {/* Campo Selecione o EPI */}
+                <div className="content-epi">
+                  <label htmlFor={`epi-${activityIndex}-${epiIndex}`}>Selecione o EPI:</label>
+                  <select
+                    id={`epi-${activityIndex}-${epiIndex}`}
+                    {...register(`activities.${activityIndex}.epiList.${epiIndex}.epi`, {
+                      validate: (value) => value !== "0" || "Selecione um EPI válido.",
+                    })}
+                  >
+                    <option value="0">Selecione seu EPI</option>
+                    <option value="Safety-footwear">Calçado de segurança</option>
+                    <option value="Helmet">Capacete</option>
+                    <option value="Safety-Glove">Luva de Segurança</option>
+                    <option value="Safety-apron">Avental de segurança</option>
+                  </select>
+                  {errors.activities?.[activityIndex]?.epiList?.[epiIndex]?.epi && (
+                    <span className="error">
+                      {errors.activities[activityIndex].epiList[epiIndex].epi?.message}
+                    </span>
+                  )}
+                </div>
+
+                {/* Campo Informe o número do CA */}
+                <div className="content-epi">
+                  <label htmlFor={`ca-${activityIndex}-${epiIndex}`}>Informe o número do CA:</label>
+                  <input
+                    type="number"
+                    id={`ca-${activityIndex}-${epiIndex}`}
+                    {...register(`activities.${activityIndex}.epiList.${epiIndex}.ca`, {
+                      required: "O número do CA é obrigatório.",
+                      validate: (value) =>
+                        value !== undefined && value > 0 || "O número do CA deve ser maior que 0.",
+                    })}
+                  />
+                  {errors.activities?.[activityIndex]?.epiList?.[epiIndex]?.ca && (
+                    <span className="error">
+                      {errors.activities[activityIndex].epiList[epiIndex].ca?.message}
+                    </span>
+                  )}
+                </div>
+
+                {/* Botão Excluir EPI */}
+                {epiIndex !== activity.epiList.length - 1 && (
+                  <button
+                    type="button"
+                    onClick={() => removeEpi(activity.id, epiIndex)}
+                    className="remove-epi-button"
+                  >
+                    Excluir EPI
+                  </button>
+                )}
+
+                {/* Botão Adicionar EPI */}
+                {epiIndex === activity.epiList.length - 1 && (
+                  <button
+                    type="button"
+                    className="button-add-epi"
+                    onClick={() => addEpi(activity.id)}
+                  >
+                    Adicionar EPI
+                  </button>
+                )}
+              </div>
+            ))}
+
+          {/* Botão Excluir Atividade */}
+          {activities.length > 1 && (
+            <button
+              type="button"
+              onClick={() => removeActivity(activityIndex)}
+              className="remove-activity-button"
+            >
+              Excluir atividade
+            </button>
+          )}
+        </div>
+      ))}
+
+      {/* Botão Adicionar Nova Atividade */}
+      <button
+        type="button"
+        onClick={addActivity}
+        className="add-activity-button"
+      >
+        Adicionar outra atividade
+      </button>
+    </>
+  )}
+</div>
+
+          {/* Upload de arquivo */}
+          {!naoUsaEpi && (
             <div className="fourth-content">
               <label htmlFor="send-file">Adicione Atestado de Saúde (opcional):</label>
               <div className="file-input">
@@ -327,7 +399,7 @@ export function Register({ toggleFormRegister }: { toggleFormRegister: () => voi
             </div>
           )}
 
-          
+
 
           <button type="submit" className="save-button">
             Salvar

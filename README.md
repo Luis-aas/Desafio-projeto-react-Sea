@@ -149,7 +149,6 @@ As rotas são configuradas no arquivo **Router.tsx**. Exemplo:
 
 tsx
 
-Copiar código
 
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
@@ -197,7 +196,6 @@ Execute o comando:
 
 bash
 
-Copiar código
 
 npm install
 
@@ -207,7 +205,6 @@ Inicie a aplicação em modo de desenvolvimento:
 
 bash
 
-Copiar código
 
 npm run dev
 
@@ -217,7 +214,6 @@ Crie a versão otimizada do projeto:
 
 bash
 
-Copiar código
 
 npm run build
 
